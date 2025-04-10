@@ -8,6 +8,7 @@ import { get_utilisateur } from "@/Services/utilisateurs";
 import { login } from '@/app/store-rtk/slices/authSlice'
 import { useNotificationContext } from '@/app/composants/notifications/NotificationContext';
 import './FragAccueil.scss'
+import e from "cors";
 
 const { Option } = Select;
 const { Title, Text } = Typography;
@@ -20,9 +21,9 @@ const FragAccueil = () => {
     const devises = useSelector((state) => state.devise.devises);
     
     const [montant, setMontant] = useState(1);
-    const [deviseSource, setDeviseSource] = useState("HTG");
+    const [deviseSource, setDeviseSource] = useState("USD");
     const [deviseCible, setDeviseCible] = useState("HTG");
-    const [tauxConversion, setTauxConversion] = useState(1);
+    const [tauxConversion, setTauxConversion] = useState(131.65);
     const [montantConverti, setMontantConverti] = useState((montant * tauxConversion).toFixed(2));
 
     const inverserDevises = () => {
@@ -217,6 +218,11 @@ const FragAccueil = () => {
                                     onChange={(e) => calculerLeMontantConverti(e.target.value)}
                                     type="number"
                                     min="0"
+                                    onKeyDown={(e) => {
+                                        if (e.key === "-" || e.key === "+") {
+                                            e.preventDefault(); // Empêche la saisie du signe "-"
+                                        }
+                                    }}
                                 />
                                 </Col>
                                 <Col xs={24} md={7}>
@@ -225,12 +231,12 @@ const FragAccueil = () => {
                                     onChange={(value) => changerDevise(value, "source")}
                                     style={{ width: "100%" }}
                                 >
-                                    <Option value="HTG">HTG - Gourde Haitienne</Option>
-                                    <Option value="USD">USD - Dollar des États-Unis</Option>
-                                    <Option value="EUR">EUR - Euro</Option>
-                                    <Option value="DOP">DOP - Peso Dominicain</Option>
-                                    <Option value="CLP">CLP - Peso Chilien</Option>
-                                    <Option value="CAD">CAD - Dollar Canadien</Option>
+                                    <Option value="HTG" disabled={deviseCible === "HTG"}>HTG - Gourde Haitienne</Option>
+                                    <Option value="USD" disabled={deviseCible === "USD"}>USD - Dollar des États-Unis</Option>
+                                    <Option value="EUR" disabled={deviseCible === "EUR"}>EUR - Euro</Option>
+                                    <Option value="DOP" disabled={deviseCible === "DOP"}>DOP - Peso Dominicain</Option>
+                                    <Option value="CLP" disabled={deviseCible === "CLP"}>CLP - Peso Chilien</Option>
+                                    <Option value="CAD" disabled={deviseCible === "CAD"}>CAD - Dollar Canadien</Option>
                                 </Select>
                                 </Col>
                                 <Col xs={24} md={2} style={{ textAlign: "center" }}>
@@ -246,12 +252,12 @@ const FragAccueil = () => {
                                     onChange={(value) => changerDevise(value, "cible")}
                                     style={{ width: "100%" }}
                                 >
-                                    <Option value="HTG">HTG - Gourde Haitienne</Option>
-                                    <Option value="USD">USD - Dollar des États-Unis</Option>
-                                    <Option value="EUR">EUR - Euro</Option>
-                                    <Option value="DOP">DOP - Peso Dominicain</Option>
-                                    <Option value="CLP">CLP - Peso Chilien</Option>
-                                    <Option value="CAD">CAD - Dollar Canadien</Option>
+                                    <Option value="HTG" disabled={deviseSource === "HTG"}>HTG - Gourde Haitienn</Option>
+                                    <Option value="USD" disabled={deviseSource === "USD"}>USD - Dollar des États-Unis</Option>
+                                    <Option value="EUR" disabled={deviseSource === "EUR"}>EUR - Euro</Option>
+                                    <Option value="DOP" disabled={deviseSource === "DOP"}>DOP - Peso Dominicain</Option>
+                                    <Option value="CLP" disabled={deviseSource === "CLP"}>CLP - Peso Chilien</Option>
+                                    <Option value="CAD" disabled={deviseSource === "CAD"}>CAD - Dollar Canadien</Option>
                                 </Select>
                                 </Col>
                             </Row>
@@ -283,6 +289,11 @@ const FragAccueil = () => {
                                     onChange={(e) => calculerLeMontantConverti(e.target.value)}
                                     type="number"
                                     min="0"
+                                    onKeyDown={(e) => {
+                                        if (e.key === "-" || e.key === "+") {
+                                            e.preventDefault(); // Empêche la saisie du signe "-"
+                                        }
+                                    }}
                                 />
                                 </Col>
                                 <Col xs={24} md={7}>
@@ -291,12 +302,12 @@ const FragAccueil = () => {
                                     onChange={(value) => changerDevise(value, "source")}
                                     style={{ width: "100%" }}
                                 >
-                                    <Option value="HTG">HTG - Gourde Haitienn</Option>
-                                    <Option value="USD">USD - Dollar des États-Unis</Option>
-                                    <Option value="EUR">EUR - Euro</Option>
-                                    <Option value="DOP">DOP - Peso Dominicain</Option>
-                                    <Option value="CLP">CLP - Peso Chilien</Option>
-                                    <Option value="CAD">CAD - Dollar Canadien</Option>
+                                    <Option value="HTG" disabled={deviseCible === "HTG"}>HTG - Gourde Haitienne</Option>
+                                    <Option value="USD" disabled={deviseCible === "USD"}>USD - Dollar des États-Unis</Option>
+                                    <Option value="EUR" disabled={deviseCible === "EUR"}>EUR - Euro</Option>
+                                    <Option value="DOP" disabled={deviseCible === "DOP"}>DOP - Peso Dominicain</Option>
+                                    <Option value="CLP" disabled={deviseCible === "CLP"}>CLP - Peso Chilien</Option>
+                                    <Option value="CAD" disabled={deviseCible === "CAD"}>CAD - Dollar Canadien</Option>
                                 </Select>
                                 </Col>
                                 <Col xs={24} md={2} style={{ textAlign: "center" }}>
@@ -312,12 +323,12 @@ const FragAccueil = () => {
                                     onChange={(value) => changerDevise(value, "cible")}
                                     style={{ width: "100%" }}
                                 >
-                                    <Option value="HTG">HTG - Gourde Haitienn</Option>
-                                    <Option value="USD">USD - Dollar des États-Unis</Option>
-                                    <Option value="EUR">EUR - Euro</Option>
-                                    <Option value="DOP">DOP - Peso Dominicain</Option>
-                                    <Option value="CLP">CLP - Peso Chilien</Option>
-                                    <Option value="CAD">CAD - Dollar Canadien</Option>
+                                    <Option value="HTG" disabled={deviseSource === "HTG"}>HTG - Gourde Haitienn</Option>
+                                    <Option value="USD" disabled={deviseSource === "USD"}>USD - Dollar des États-Unis</Option>
+                                    <Option value="EUR" disabled={deviseSource === "EUR"}>EUR - Euro</Option>
+                                    <Option value="DOP" disabled={deviseSource === "DOP"}>DOP - Peso Dominicain</Option>
+                                    <Option value="CLP" disabled={deviseSource === "CLP"}>CLP - Peso Chilien</Option>
+                                    <Option value="CAD" disabled={deviseSource === "CAD"}>CAD - Dollar Canadien</Option>
                                 </Select>
                                 </Col>
                             </Row>

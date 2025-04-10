@@ -1,4 +1,5 @@
 'use client'
+import React, { useState } from 'react'
 import { MdPerson } from "react-icons/md";
 import {Button, Popover, Divider} from 'antd'
 import Link from "next/link";
@@ -10,8 +11,20 @@ const ModalInscription = dynamic(() => import('@/app/composants/modals/ModalInsc
 const ModalConnexion = dynamic(() => import('@/app/composants/modals/ModalConnexion'));
 
 function ComptePopover() {
+    const [open, setOpen] = useState(false);
+  
     const user = useSelector((state) => state.auth.user)
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+
+
+    const hide = () => {
+        setOpen(false);
+    };
+
+    const handleOpenChange = newOpen => {
+        setOpen(newOpen);
+      };
+
     let content;
 
     if(!isAuthenticated) {
@@ -23,8 +36,8 @@ function ComptePopover() {
                 </div>
                 <Divider />
                 <div className="popover--container__body" style={{display: "flex", flexDirection: "column", gap: "1rem", alignItems: "center"}}>
-                    <ModalConnexion />
-                    <ModalInscription />
+                    <span onClick={hide}><ModalConnexion/></span>
+                    <span onClick={hide}><ModalInscription /></span>
                 </div>
             </div>
         )
@@ -39,7 +52,7 @@ function ComptePopover() {
                 </div>
                 <Divider />
                 <div className="popover--container__body">
-                    <DeconnexionBouton />
+                    <span onClick={hide}><DeconnexionBouton /></span>
                 </div>
             </div>
         );
@@ -47,7 +60,14 @@ function ComptePopover() {
     
 
   return (
-    <Popover content={content} trigger="click" placement="bottomRight" style={{maxWidth: "250px"}}>
+    <Popover 
+        content={content} 
+        open={open}
+        onOpenChange={handleOpenChange} 
+        trigger="click" 
+        placement="bottomRight" 
+        style={{maxWidth: "250px"}}
+    >
         <Button 
             type="text" 
             icon={<MdPerson />} 
