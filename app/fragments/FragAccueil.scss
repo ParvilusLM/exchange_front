@@ -1,0 +1,52 @@
+.marquee {
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    justify-content: center;
+    width: 100%;
+    margin: 16px 0;
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+    font-weight: bold;
+    position: relative;
+
+    span {
+        display: inline-block;
+        animation-duration: 30s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        animation-name: marquee;
+        animation-delay: 0s;
+        position: relative;
+
+        /* Duplication du texte à gauche et à droite */
+        &::before,
+        &::after {
+            content: attr(data-text); /* Utilise le même texte que dans l'élément */
+            position: absolute;
+            white-space: nowrap;
+            color: inherit;
+        }
+
+        &::before {
+            left: -100%; /* Place le texte avant l'élément principal */
+        }
+
+        &::after {
+            right: -100%; /* Place le texte après l'élément principal */
+        }
+    }   
+}
+
+@keyframes marquee  {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+  
+
