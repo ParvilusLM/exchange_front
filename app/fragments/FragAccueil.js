@@ -357,6 +357,7 @@ const FragAccueil = () => {
                             title="Historique des conversions"
                         >
                             <Table
+                                scroll={{ x: 'auto', }}
                                 dataSource={user.historique.conversions}
                                 columns={colonnes}
                                 pagination={{ pageSize: 5 }}
