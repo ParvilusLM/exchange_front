@@ -1,6 +1,6 @@
 'use client'
 import React from "react";
-import { Button, Typography, Layout } from "antd";
+import { Typography, Layout } from "antd";
 import dynamic from "next/dynamic";
 
 
@@ -10,10 +10,6 @@ const { Header } = Layout;
 const { Title } = Typography;
 
 const AppHeader = () => {
-  const handleLogin = () => {
-    // Logique pour se connecter (par exemple, redirection ou ouverture d'une modale)
-    console.log("Connexion...");
-  };
 
   return (
     <>

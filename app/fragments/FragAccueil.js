@@ -8,10 +8,17 @@ import { get_utilisateur } from "@/Services/utilisateurs";
 import { login } from '@/app/store-rtk/slices/authSlice'
 import { useNotificationContext } from '@/app/composants/notifications/NotificationContext';
 import './FragAccueil.scss'
-import e from "cors";
 
 const { Option } = Select;
 const { Title, Text } = Typography;
+
+//JSDOC
+/**
+ * @function FragAccueil
+ * @description FragAccueil est le fragment composant qui affiche la page d'accueil de l'application. 
+ * @param {Object} props - Les propriétés du composant.
+ * @returns {JSX.Element} - Le fragment d'accueil.
+ */
 
 const FragAccueil = () => {
     const dispatch = useDispatch();
@@ -26,6 +33,14 @@ const FragAccueil = () => {
     const [tauxConversion, setTauxConversion] = useState(131.65);
     const [montantConverti, setMontantConverti] = useState((montant * tauxConversion).toFixed(2));
 
+
+    // Inverser les devises
+    // JSDOC
+    /**
+     * @function inverserDevises
+     * @description Inverser les devises source et cible.
+     * @returns {void}
+    */
     const inverserDevises = () => {
         setDeviseSource(deviseCible);
         setDeviseCible(deviseSource);
@@ -33,6 +48,13 @@ const FragAccueil = () => {
     };
 
 
+    // Ajouter une entrée à l'historique
+    // JSDOC
+    /**
+     * @function ajouterHistorique
+     * @description Ajouter une entrée à l'historique de conversions de l'utilisateur connecté et revalide ses données.
+     * @returns {void}
+    */
     const ajouterHistorique = async () => {
         // Creer une nouvelle entrée d'historique
         const nouvelleEntree = {
@@ -64,6 +86,14 @@ const FragAccueil = () => {
 
     };
 
+
+    // Supprimer une conversion dans l'historique
+    /**
+     * * @function supprimerConversion
+     * @description Supprimer une conversion dans l'historique de l'utilisateur connecté.
+     * @param {number} id 
+     * 
+    */
     const supprimerConversion = async (id) => {
         try {
             const response = await delete_conversions(id);
@@ -126,6 +156,14 @@ const FragAccueil = () => {
     ];
 
 
+    // Calculer le montant converti
+    // JSDOC
+    /**
+     * @function calculerLeMontantConverti
+     * @description Calculer le montant converti en fonction du montant et du taux de conversion.
+     * @param {number} nouveau_montant 
+     * @returns {void}
+     */
     const calculerLeMontantConverti = (nouveau_montant) => {
         // Attribuer le montant a convertir
         setMontant(nouveau_montant);
@@ -135,6 +173,16 @@ const FragAccueil = () => {
         setMontantConverti(nouveau_montantConverti);
     }
 
+
+    // Calculer le taux de conversion'
+    // JSDOC
+    /**
+     * @description Calculer le taux de conversion entre deux devises en utilisant la monnaie locale HTG
+     * @function calculerTauxConversion
+     * @param {number} nouvelle_devise 
+     * @param {string} typeDevise 
+     * @returns {setTauxConversion}
+     */
     const calculerTauxConversion = (nouvelle_devise, typeDevise) => {
         if (typeDevise === "source") {
             // Calculer le montant converti pour HTG et devise source
@@ -165,6 +213,14 @@ const FragAccueil = () => {
 
 
 
+    // Changer devise
+    /**
+     * @function changerDevise
+     * @description Changer la devise dans l'input correspondant
+     * @param {number} devise 
+     * @param {string} typeDevise 
+     * @returns {void}
+     */
     const changerDevise = (devise, typeDevise) => {
         if( typeDevise === "source") {
             setDeviseSource(devise);

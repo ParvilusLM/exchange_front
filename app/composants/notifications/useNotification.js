@@ -1,9 +1,7 @@
-// app/hooks/useNotification.js
 'use client';
 
-import { useState, useMemo, useContext } from 'react';
+import { useMemo} from 'react';
 import { notification } from 'antd';
-import { NotificationContext } from '@/app/composants/notifications/NotificationContext';
 
 const useNotification = (defaultName = 'Mon Application') => {
   const [api, contextHolder] = notification.useNotification();
